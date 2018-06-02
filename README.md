@@ -20,3 +20,8 @@ The cycle of operation is as follows:
 - Every time a body receives a `BodyInfo` event, a (different) body updates its force to account for that body.
 - Every time **Universe** receives a `BodyInfo` event (from some body), it re-draws that body.
 
+
+
+## Screenshot
+
+![Screenshot](screenshot.png)

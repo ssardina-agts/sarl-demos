@@ -7,7 +7,7 @@ interface Constants {
 
 	val CANVAS_SIZE = 600
 
-	val NB_BODIES = 3
+	val NB_BODIES = 50
 	val TICK_DELAY = 100
 	
 	val TRACE_SIZE = 5
