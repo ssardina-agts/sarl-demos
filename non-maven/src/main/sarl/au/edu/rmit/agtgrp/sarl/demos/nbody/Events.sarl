@@ -1,0 +1,25 @@
+package au.edu.rmit.agtgrp.sarl.demos.nbody
+
+event BodyInfo {
+	var ry : double // holds the cartesian positions
+	var rx : double
+	var mass : double
+
+	new(rx : double, ry : double, mass : double) {
+		this.rx = rx;
+		this.ry = ry;
+		this.mass = mass;
+	}
+}
+
+event Tick {
+	val dt : double
+
+	new(dtime : double) {
+		this.dt = dtime
+	}
+
+	new {
+		this.dt = 1e10
+	}
+}

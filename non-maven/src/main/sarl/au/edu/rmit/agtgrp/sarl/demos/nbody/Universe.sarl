@@ -1,0 +1,46 @@
+package au.edu.rmit.agtgrp.sarl.demos.nbody
+
+import com.google.common.collect.EvictingQueue
+
+import io.sarl.core.DefaultContextInteractions
+import io.sarl.core.Initialize
+import io.sarl.core.Lifecycle
+import io.sarl.core.Logging
+import io.sarl.core.Schedules
+
+
+import javax.swing.SwingUtilities
+import io.sarl.core.InnerContextAccess
+import io.sarl.lang.core.AgentContext
+
+import static au.edu.rmit.agtgrp.sarl.demos.nbody.Constants.*
+import au.edu.rmit.agtgrp.sarl.demos.nbody.Body
+
+agent Universe {
+	uses Schedules 
+	uses Lifecycle
+	uses Logging
+	uses DefaultContextInteractions
+	
+	var ui : UniverseUI
+
+//	@SuppressWarnings("deprecated_member_reference")
+	on Initialize {
+		SwingUtilities.invokeAndWait([this.ui = new UniverseUI])
+		spawn(NB_BODIES, Body)
+//		for (var i = 0; i < NB_BODIES; i++) {
+//			var uuid = spawn(typeof(Body))
+//		}
+		every(TICK_DELAY)[emit_tick]
+	}
+
+	def emit_tick {
+		this.ui.canvas.refresh
+		// this.ui.canvas.reset
+		emit(new Tick)
+	}
+
+	on BodyInfo {
+		this.ui.canvas.addBody(occurrence)
+	}
+}
