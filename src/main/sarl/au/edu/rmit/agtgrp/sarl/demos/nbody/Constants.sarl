@@ -1,0 +1,15 @@
+package au.edu.rmit.agtgrp.sarl.demos.nbody
+
+interface Constants {
+
+	val static G = 6.673e-11;
+	val static SOLAR_MASS = 1.98892e30;
+
+	val CANVAS_SIZE = 600
+
+	val NB_BODIES = 3
+	val TICK_DELAY = 100
+	
+	val TRACE_SIZE = 5
+
+}

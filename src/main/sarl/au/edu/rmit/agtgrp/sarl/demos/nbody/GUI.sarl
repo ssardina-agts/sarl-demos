@@ -1,0 +1,89 @@
+package au.edu.rmit.agtgrp.sarl.demos.nbody
+
+import java.awt.BorderLayout
+import java.awt.Canvas
+import java.awt.Color
+import java.awt.Toolkit
+import javax.swing.JFrame
+import javax.swing.SwingUtilities
+import com.google.common.collect.EvictingQueue
+
+import static au.edu.rmit.agtgrp.sarl.demos.nbody.Constants.*
+
+
+class BodyCanvas extends Canvas {
+	// a flag if repaint in progress (needed if our computation are to long)
+	var repaintInProgress = false;
+	// var points = new ArrayList<BodyInf>
+	var points : EvictingQueue<BodyInfo> = EvictingQueue.create(NB_BODIES * TRACE_SIZE) 
+
+	new() {
+		setIgnoreRepaint(true);
+	}
+
+	def reset {
+		synchronized (points) {
+			points.clear
+		}
+
+	}
+
+	def addBody(b : BodyInfo) {
+		synchronized (points) {
+			points.add(b)
+		}
+
+	}
+
+	def refresh {
+		// wasting too much time doing the repaint... ignore it
+		if (repaintInProgress)
+			return;
+		// so I won't be called 2 times in a row for nothing
+		repaintInProgress = true;
+		// get actual Canvas size so I can check if I am out of bounds
+		var size = getSize();
+		// ok doing the repaint on the not showed page
+		val strategy = getBufferStrategy();
+		val graphics = strategy.getDrawGraphics();
+
+		// again testing purpose we flip backgound color every repaint
+		graphics.setColor(Color.WHITE);
+		graphics.fillRect(0, 0, size.width, size.height);
+		// now we draw the ball
+		graphics.setColor(Color.BLACK);
+		synchronized (points) {
+			for (p : points) {
+				graphics.fillOval(p.rx as int + 100, p.ry as int + 100, 10, 10);
+			}
+		}
+		if (graphics != null)
+			graphics.dispose();
+		// show next buffer
+		strategy.show();
+		// synchronized the blitter page shown
+		Toolkit.getDefaultToolkit().sync();
+
+		// ok I can be called again
+		repaintInProgress = false;
+	}
+}
+
+class UniverseUI extends JFrame {
+	public val canvas = new BodyCanvas
+
+	new {
+		// frame description
+		super("NBody Simulation");
+		// our Canvas
+		add(canvas, BorderLayout.CENTER);
+		// set it's size and make it visible
+		setSize(CANVAS_SIZE, CANVAS_SIZE);
+		setVisible(true);
+		// now that is visible we can tell it that we will use 2 buffers to do the repaint
+		// befor being able to do that, the Canvas as to be visible
+		canvas.createBufferStrategy(2);
+		
+	}
+
+}
