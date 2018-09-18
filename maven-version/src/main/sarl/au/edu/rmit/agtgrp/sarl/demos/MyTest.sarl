@@ -1,0 +1,108 @@
+/** 
+ * 
+ */
+package au.edu.rmit.agtgrp.sarl.demos
+
+import io.sarl.core.AgentKilled
+import io.sarl.core.AgentSpawned
+import io.sarl.core.ContextJoined
+import io.sarl.core.ContextLeft
+import io.sarl.core.Destroy
+import io.sarl.core.Initialize
+import io.sarl.core.Logging
+import io.sarl.core.MemberJoined
+import io.sarl.core.MemberLeft
+import io.sarl.core.Lifecycle
+import io.sarl.core.Behaviors
+import io.sarl.lang.core.Agent
+
+behavior MyBehavior {
+	uses Logging
+	
+	var data : String
+	
+	new(agt : Agent, params: Object*) {
+		super(agt)
+
+		// Here we can get the params and operate on them,
+		data = params.get(0) as String 
+		info("This is the data I received and stored: {0}", data)
+	}
+
+	on Initialize {
+		info("===============> I'm initializing my BEHAVIOR")
+		
+		// This will always give empty: not sure how you can pass data to this Initialization event!
+		info("This is the data in occurrence.parameters: {0}" + occurrence.parameters.toString)
+	}
+}
+
+
+/** 
+ * @author ssardina
+ * 
+ */
+agent MyTest {
+	uses Logging
+	uses Lifecycle
+	uses Behaviors
+
+	on Initialize {
+		// Event trigger before the agent begin to live or to be used.
+		// You should put all the initialization statements in this block of code.
+		info("----------------------> The AGENT was started.")
+
+
+
+		/**
+		 * 1 - Here we want to create a behavior and pass it some data
+		 * We needed to create a new(..,..) constructor in the behavior to access this new data
+		 * the occurrence.parameters of Initialize will not get it
+		 * 
+		 * Check forum post: https://groups.google.com/forum/#!topic/sarl/E0TuX-V123U 
+		 * 
+		 */
+		var beh = new MyBehavior(this, "Hello behavior, this is my data!") // <- the parameter is the agent
+        registerBehavior(beh)
+
+
+
+        
+		// Bye bye...
+		killMe
+	}
+
+	on Destroy {
+		// Event trigger when the agent is destroyed from the system.
+		// You should put all the resource releasing statements in this block of code.
+		info("The agent was stopped.")
+	}
+
+	on AgentSpawned {
+		// A new agent has been spawned in our context.
+	}
+
+	on AgentKilled {
+		// A new agent has been killed in our context.
+	}
+
+	on ContextJoined {
+		// Event trigger when an agent of the level joins a shared context.
+		// Sent to a agent of the same level.
+	}
+
+	on ContextLeft {
+		// Event trigger when an agent of the level jleaves a shared context.
+		// Sent to a agent of the same level.
+	}
+
+	on MemberJoined {
+		// Event trigger when an agent joins one of our shared super-holons.
+		// Sent to all members of the considered super-holon.
+	}
+
+	on MemberLeft {
+		// Event trigger when an agent leaves one of our shared super-holons.
+		// Sent to all members of the considered super-holon.
+	}
+}
