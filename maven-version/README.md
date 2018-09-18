@@ -20,6 +20,16 @@ The cycle of operation is as follows:
 - Every time a body receives a `BodyInfo` event, a (different) body updates its force to account for that body.
 - Every time **Universe** receives a `BodyInfo` event (from some body), it re-draws that body.
 
+## Running it
+
+You can run it with the JAR with dependencies:
+
+	java -cp target/demo-nbody-1.0.0.7.2-jar-with-dependencies.jar io.janusproject.Boot au.edu.rmit.agtgrp.sarl.demos.nbody.Universe
+
+Since `io.janusproject.Boot` is the main class in the JAR file you can also just run:
+
+	java -jar target/demo-nbody-1.0.0.7.2-jar-with-dependencies.jar  au.edu.rmit.agtgrp.sarl.demos.nbody.Universe
+
 
 
 ## Screenshot

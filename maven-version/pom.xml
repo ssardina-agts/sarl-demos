@@ -69,7 +69,57 @@
                 </configuration>
             </plugin>
 
-		    <!-- Build pipeline plugins 
+
+        	<!--  Attach sources -->
+	       <plugin>
+	              <groupId>org.apache.maven.plugins</groupId>
+	              <artifactId>maven-source-plugin</artifactId>
+	              <executions>
+	                    <execution>
+	                          <id>attach-sources</id>
+	                           <goals>
+	                               <goal>jar</goal>
+	                           </goals>
+	                    </execution>
+	              </executions>
+	       </plugin>
+	       
+	       			<!--  Aggregate project into a JAR packages
+			https://maven.apache.org/plugins/maven-assembly-plugin/
+			
+			Commented out by default as it is too slow. Uncomment for final release.
+			-->
+		    <plugin>
+			    <artifactId>maven-assembly-plugin</artifactId>
+			    <!--  
+			    <version>3.1.0</version> 
+			    -->
+			    <configuration>
+			        <archive>
+			            <manifest>
+			                <addClasspath>true</addClasspath>
+			                <mainClass>io.janusproject.Boot</mainClass>
+			            </manifest>
+			        </archive>
+			        <descriptorRefs>
+			            <descriptorRef>jar-with-dependencies</descriptorRef>
+			        </descriptorRefs>
+			    </configuration>
+			    
+				<!--  EXECUTIONS -->
+			    <executions>
+
+					<!--  Assemble an application bundle or distribution from an assembly descriptor.  -->
+			        <execution>
+			            <phase>package</phase>
+			            <goals>
+			                <goal>single</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+		    </plugin>
+
+		    <!-- Build pipeline plugins --> 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -77,8 +127,6 @@
                     <mainClass>io.janusproject.Boot</mainClass>
                 </configuration>
             </plugin>
-			-->
-
 		</plugins>
         
     </build>
