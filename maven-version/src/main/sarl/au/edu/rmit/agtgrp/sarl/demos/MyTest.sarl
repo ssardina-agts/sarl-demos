@@ -16,9 +16,14 @@ import io.sarl.core.Lifecycle
 import io.sarl.core.Behaviors
 import io.sarl.lang.core.Agent
 
+
+
+
+
 behavior MyBehavior {
 	uses Logging
-	
+	//	uses Reporting	// not needed because the behavior itself does not uses,just set the skill
+		
 	var initParam : Object[]
 
 	new (owner : Agent, initParam : Object*) {
@@ -33,6 +38,9 @@ behavior MyBehavior {
 		info("This is the data in occurrence.parameters: {0}" + occurrence.parameters.toString)
 		
 		info("This is the data stored at creation time: {0}", this.initParam.toString)
+
+		setSkill(new ConsoleReporting("Super-Single-Agent"), Reporting)
+
 	}
 }
 
@@ -45,6 +53,7 @@ agent MyTest {
 	uses Logging
 	uses Lifecycle
 	uses Behaviors
+	uses Reporting
 
 	on Initialize {
 		// Event trigger before the agent begin to live or to be used.
@@ -64,6 +73,7 @@ agent MyTest {
 		var beh = new MyBehavior(this, "Hello behavior, this is my data!") // <- the parameter is the agent
         registerBehavior(beh)
 
+		agent_says("I now have the skill to report on console")
 
 
         
