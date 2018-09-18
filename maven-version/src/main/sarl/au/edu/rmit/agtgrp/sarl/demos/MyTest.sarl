@@ -19,14 +19,11 @@ import io.sarl.lang.core.Agent
 behavior MyBehavior {
 	uses Logging
 	
-	var data : String
-	
-	new(agt : Agent, params: Object*) {
-		super(agt)
+	var initParam : Object[]
 
-		// Here we can get the params and operate on them,
-		data = params.get(0) as String 
-		info("This is the data I received and stored: {0}", data)
+	new (owner : Agent, initParam : Object*) {
+		super(owner)
+		this.initParam = initParam
 	}
 
 	on Initialize {
@@ -34,6 +31,8 @@ behavior MyBehavior {
 		
 		// This will always give empty: not sure how you can pass data to this Initialization event!
 		info("This is the data in occurrence.parameters: {0}" + occurrence.parameters.toString)
+		
+		info("This is the data stored at creation time: {0}", this.initParam.toString)
 	}
 }
 
