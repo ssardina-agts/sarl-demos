@@ -52,6 +52,6 @@ The demo-tutorial is in package `au.edu.rmiagtgrp.sarl.demos.pingpong`
 To run it:
 
 ```
-java -cp target/demo-nbody-1.0.0.8.6-jar-with-dependencies.jar io.janusproject.Boot au.edu.rmiagtgrp.sarl.demos.pingpong.BootAgent
+java -cp target/demo-nbody-1.0.0.8.6-jar-with-dependencies.jar io.janusproject.Boot au.edu.rmit.agtgrp.sarl.demos.pingpong.BootAgent
 ```
 

@@ -27,8 +27,7 @@ agent PongAgent {
 
 	on Ping {
 		info("-----> Pong {0}", occurrence.index)
-		emit(new Pong(occurrence.index))
-			[it == occurrence.source]
+		emit(new Pong(occurrence.index))[it == occurrence.source]
 	}
 }
 
@@ -38,7 +37,7 @@ agent PingAgent {
 
 	on Pong {
 		info("Ping {0}", occurrence.index + 1)
-//		emit(new Ping(occurrence.index + 1))[it == occurrence.source]
+		emit(new Ping(occurrence.index + 1))[it == occurrence.source]
 	}
 
 	on Initialize {
