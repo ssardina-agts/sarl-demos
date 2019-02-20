@@ -1,7 +1,7 @@
 # SARL Demos
 
 
-## Body
+## Body Demo
 
 This demo displays a universe with bodies that puts forces on each other thus changing their position with every tick.
 
@@ -40,7 +40,10 @@ Since `io.janusproject.Boot` is the main class in the JAR file you can also just
 ![Screenshot](/screenshot.png)
 
 
-## Ping Pong
+
+-------------------------
+
+## Ping Pong Demo
 
 This is the [Ping-Pong tutorial](http://www.sarl.io/docs/official/tutorials/PingPong.html) demo in SARL documentation.
 
