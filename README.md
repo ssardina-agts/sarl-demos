@@ -1,11 +1,14 @@
-# SARL Demo: Body
+# SARL Demos
+
+
+## Body
 
 This demo displays a universe with bodies that puts forces on each other thus changing their position with every tick.
 
 This demo was provided by Sebastian Rodriguez.
 
 
-## Description
+### Description
 
 The system is composed of a **Universe** agent and many **Body** agents that pose forces to each other.
 
@@ -20,8 +23,32 @@ The cycle of operation is as follows:
 - Every time a body receives a `BodyInfo` event, a (different) body updates its force to account for that body.
 - Every time **Universe** receives a `BodyInfo` event (from some body), it re-draws that body.
 
+### Running it
+
+You can run it with the JAR with dependencies:
+
+	java -cp target/demo-nbody-1.0.0.7.2-jar-with-dependencies.jar io.janusproject.Boot au.edu.rmit.agtgrp.sarl.demos.nbody.Universe
+
+Since `io.janusproject.Boot` is the main class in the JAR file you can also just run:
+
+	java -jar target/demo-nbody-1.0.0.7.2-jar-with-dependencies.jar  au.edu.rmit.agtgrp.sarl.demos.nbody.Universe
 
 
-## Screenshot
 
-![Screenshot](screenshot.png)
+### Screenshot
+
+![Screenshot](/screenshot.png)
+
+
+## Ping Pong
+
+This is the [Ping-Pong tutorial](http://www.sarl.io/docs/official/tutorials/PingPong.html) demo in SARL documentation.
+
+The demo-tutorial is in package `au.edu.rmiagtgrp.sarl.demos.pingpong`
+
+To run it:
+
+```
+java -cp target/demo-nbody-1.0.0.8.6-jar-with-dependencies.jar io.janusproject.Boot au.edu.rmiagtgrp.sarl.demos.pingpong.BootAgent
+```
+

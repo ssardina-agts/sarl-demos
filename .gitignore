@@ -284,3 +284,4 @@ fabric.properties
 
 target/
 generated-sources*
+.settings/

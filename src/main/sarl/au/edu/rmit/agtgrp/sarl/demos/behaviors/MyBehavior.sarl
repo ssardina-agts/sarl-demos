@@ -1,7 +1,4 @@
-/** 
- * 
- */
-package au.edu.rmit.agtgrp.sarl.demos
+package au.edu.rmit.agtgrp.sarl.demos.behaviors
 
 import io.sarl.core.AgentKilled
 import io.sarl.core.AgentSpawned
@@ -15,10 +12,8 @@ import io.sarl.core.MemberLeft
 import io.sarl.core.Lifecycle
 import io.sarl.core.Behaviors
 import io.sarl.lang.core.Agent
-
-
-
-
+import au.edu.rmit.agtgrp.sarl.demos.ConsoleReporting
+import au.edu.rmit.agtgrp.sarl.demos.Reporting
 
 behavior MyBehavior {
 	uses Logging
@@ -49,7 +44,7 @@ behavior MyBehavior {
  * @author ssardina
  * 
  */
-agent MyTest {
+agent MyAgent {
 	uses Logging
 	uses Lifecycle
 	uses Behaviors
@@ -70,7 +65,7 @@ agent MyTest {
 		 * Check forum post: https://groups.google.com/forum/#!topic/sarl/E0TuX-V123U 
 		 * 
 		 */
-		var beh = new MyBehavior(this, "Hello behavior, this is my data!") // <- the parameter is the agent
+		val beh = new MyBehavior(this, "Hello behavior, this is my data!") // <- the parameter is the agent
         registerBehavior(beh)
 
 		agent_says("I now have the skill to report on console")
